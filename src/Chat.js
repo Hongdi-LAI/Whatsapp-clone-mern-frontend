@@ -20,8 +20,7 @@ function Chat({ messages }) {
 
     const sendMessage = async (e) => {
         e.preventDefault();
-        // if no input and hit 'Enter'
-        // do nothing
+        // if no input and hit 'Enter' then do nothing
         if(input === ''){
             return;
         } else {
@@ -32,7 +31,6 @@ function Chat({ messages }) {
                 received: true,
             });
         }
-        
         //clear input folder
         setInput('');
     };
