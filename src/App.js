@@ -25,6 +25,12 @@ function App() {
       //alert(JSON.stringify(data));
       setMessage([...messages, newMessage]);
     });
+
+    return () => {
+      // ensure we only have one subscriber
+      channel.unbind_all();
+      channel.unsubscribe();
+    };
   }, [messages]);
 
   console.log(messages);
@@ -33,7 +39,7 @@ function App() {
     <div className = "app">
       <div className = "app__body">
         <Sidebar />
-        <Chat />
+        <Chat messages = {messages} />
       </div>
 
     

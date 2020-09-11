@@ -6,8 +6,9 @@ import AttachFile from '@material-ui/icons/AttachFile'
 import MoreVert from '@material-ui/icons/MoreVert'
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
 import MicIcon from '@material-ui/icons/Mic'
+import axios from './axios'
 
-function Chat() {
+function Chat({ messages }) {
 
     const [input, setInput] = useState('');
     const [seed, setSeed] = useState('');
@@ -16,10 +17,25 @@ function Chat() {
         setSeed(Math.floor(Math.random()*5000));
     }, []);
 
-    const sendMessage = (e) => {
-        e.preventDefault();
-    }
 
+    const sendMessage = async (e) => {
+        e.preventDefault();
+        // if no input and hit 'Enter'
+        // do nothing
+        if(input === ''){
+            return;
+        } else {
+            await axios.post('/messages/new',{
+                message: input,
+                name: 'Demo App',
+                timestamp: 'Just Now',
+                received: true,
+            });
+        }
+        
+        //clear input folder
+        setInput('');
+    };
 
     return (
         <div className ="chat">
@@ -46,15 +62,18 @@ function Chat() {
             </div>
 
             <div className = "chat__body">
-                <p className = {`chat__message ${true && 'chat__receiver'}`}>
-                    <span className = "chat__name">
-                        Hongdi
-                    </span>
-                    This is a message
-                    <span className = "chat__timestamp">
-                        {new Date().toUTCString()}
-                    </span>  
-                </p>
+                {messages.map((message) => (
+                    <p className = 
+                    {`chat__message ${message.received && 'chat__receiver'}`}>
+                        <span className = "chat__name">
+                            {message.name}
+                        </span>
+                        {message.message}
+                        <span className = "chat__timestamp">
+                            {message.timestamp}
+                        </span>  
+                    </p>
+                ))}
             </div>
 
             <div className = "chat__footer">
