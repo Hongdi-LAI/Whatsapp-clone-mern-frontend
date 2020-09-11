@@ -9,11 +9,16 @@ import MicIcon from '@material-ui/icons/Mic'
 
 function Chat() {
 
+    const [input, setInput] = useState('');
     const [seed, setSeed] = useState('');
     
     useEffect(() => {
         setSeed(Math.floor(Math.random()*5000));
     }, []);
+
+    const sendMessage = (e) => {
+        e.preventDefault();
+    }
 
 
     return (
@@ -55,11 +60,18 @@ function Chat() {
             <div className = "chat__footer">
                 <InsertEmoticonIcon />
                 <form>
-                    <input 
+                    <input
+                        value = {input}
+                        onChange = {e => setInput(e.target.value)}
                         type = "text" 
                         placeholder = "Type in a message..."    
                     />
-                    <button>Send a message</button>
+                    <button 
+                        type = "submit"
+                        onClick = {sendMessage} 
+                    >
+                        Send a message
+                    </button>
                 </form>
                 <MicIcon />
             </div>
