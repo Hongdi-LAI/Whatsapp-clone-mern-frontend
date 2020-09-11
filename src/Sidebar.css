@@ -4,6 +4,8 @@
     flex: 0.35;
 }
 
+
+
 .sidebar__header {
     display: flex;
     justify-content: space-between;
@@ -57,4 +59,8 @@
     background-color: white;
     /* overflow chat info gets scroll down to see*/
     overflow: scroll;
+}
+
+.sidebar__chats::-webkit-scrollbar {
+    display: none;
 }
