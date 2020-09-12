@@ -81,7 +81,9 @@ function Chat({ messages }) {
             </div>
 
             <div className = "chat__footer">
-                <InsertEmoticonIcon />
+                <IconButton>
+                    <InsertEmoticonIcon />
+                </IconButton>
                 <form>
                     <input
                         value = {input}
@@ -96,7 +98,9 @@ function Chat({ messages }) {
                         Send a message
                     </button>
                 </form>
-                <MicIcon />
+                <IconButton>
+                    <MicIcon />
+                </IconButton>
             </div>
 
         </div>
