@@ -6,11 +6,15 @@ import Login from './Login';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Pusher from 'pusher-js';
 import axios from './axios';
+import { useStateValue } from './StateProvider';
+import SidebarChat from './SidebarChat';
 
 function App() {
 
+  // pull the user into the DataLayer
+  const[{ user },dispatch] = useStateValue();
   const [messages, setMessage] = useState([]);
-  const [user, setUser] = useState(null);
+  
 
   //fetching data from Mongoose database
   useEffect(() => {
@@ -51,7 +55,7 @@ function App() {
                 <Chat messages = {messages} />
               </Route>
               <Route path = '/'>
-                <Chat messages = {messages} />
+                <Chat messages = {messages}/>
               </Route>
             </Switch>
           </Router>

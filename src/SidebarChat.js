@@ -4,7 +4,8 @@ import {Avatar} from '@material-ui/core';
 import db from './firebase';
 import {Link} from 'react-router-dom';
 
-function SidebarChat({ addNewChat, id, name }) {
+
+function SidebarChat({ addNewChat, id, name, messages }) {
 
     const [seed, setSeed] = useState('');
     
@@ -33,7 +34,7 @@ function SidebarChat({ addNewChat, id, name }) {
                 />
                 <div className = "sidebarChat__info">
                     <h2>{name}</h2>
-                    <p>last message</p>
+                    <p>...</p>
                 </div>
             </div>
         </Link>

@@ -7,10 +7,12 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchOutlined from '@material-ui/icons/SearchOutlined';
 import {Avatar, IconButton} from '@material-ui/core';
 import db from './firebase';
+import { useStateValue } from './StateProvider';
 
 function Sidebar() {
 
     const [rooms, setRooms] = useState([]);
+    const [{user}, dispatch] = useStateValue();
 
     useEffect(() => {
         // on any change of the snapshot, trigger
@@ -33,8 +35,8 @@ function Sidebar() {
         <div className = "sidebar">
             <div className = "sidebar__header">
                 <Avatar 
-                    src = ""
-                    alt = ""
+                    src = {user?.photoURL}
+                    alt = {user?.displayname}
                 />
                 <div className = "sidebar__headerRight">
                     <IconButton>
