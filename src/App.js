@@ -7,7 +7,6 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Pusher from 'pusher-js';
 import axios from './axios';
 import { useStateValue } from './StateProvider';
-import SidebarChat from './SidebarChat';
 
 function App() {
 
