@@ -15,7 +15,7 @@ function Sidebar() {
     useEffect(() => {
         // on any change of the snapshot, trigger
         // real-time listener for room names
-        db.collection('rooms').onSnapshot((snapshot) => 
+        const unsubscribe = db.collection('rooms').onSnapshot((snapshot) => 
             setRooms(
                 snapshot.docs.map((doc) => ({
                     id: doc.id,
@@ -23,6 +23,10 @@ function Sidebar() {
                 }))
             )
         );
+        // cleanup 
+        return () => {
+            unsubscribe();
+        }
     }, []);
 
     return (

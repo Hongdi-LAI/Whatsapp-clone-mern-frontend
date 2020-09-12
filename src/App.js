@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Sidebar from './Sidebar';
 import Chat from './Chat';
+import Login from './Login';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Pusher from 'pusher-js';
 import axios from './axios';
 
 function App() {
 
-  const [messages,setMessage] = useState([]);
+  const [messages, setMessage] = useState([]);
+  const [user, setUser] = useState(null);
 
-  //fetching data from database
+  //fetching data from Mongoose database
   useEffect(() => {
     axios.get('/messages/sync').then(response => {
       setMessage(response.data)
@@ -33,17 +36,31 @@ function App() {
     };
   }, [messages]);
 
-  console.log(messages);
+  //console.log(messages);
 
   return (
     <div className = "app">
-      <div className = "app__body">
-        <Sidebar />
-        <Chat messages = {messages} />
-      </div>
+      {!user ? (
+        <h1><Login/></h1>
+      ):(
+        <div className = "app__body">
+          <Router>
+            <Sidebar />
+            <Switch>  
+              <Route path = '/rooms/:roomId'>
+                <Chat messages = {messages} />
+              </Route>
+              <Route path = '/'>
+                <Chat messages = {messages} />
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+      )}
 
     
     </div>
+    
   );
 }
 
